@@ -23,8 +23,9 @@ const AdminPanel = () => {
         </main>
       </div>
     </div>
+    
   );
-  
+
 };
 
 export default AdminPanel;
