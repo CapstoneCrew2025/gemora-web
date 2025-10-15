@@ -1,11 +1,13 @@
 import React from 'react'
+import AdminPanel from './components/admin/AdminPanel'
 
 function App() {
   return (
-    <div >App
-        <input type="text" className="border-2 border-blue-500" />
+    <div>
+      <AdminPanel />
     </div>
   )
 }
 
 export default App
+
