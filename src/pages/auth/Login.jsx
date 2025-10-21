@@ -234,9 +234,12 @@ const Login = () => {
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-600">
               Don't have an account?{' '}
-              <a href="#" className="font-bold text-green-600 hover:text-green-700 transition-colors">
+              <button
+                onClick={() => navigate('/register')}
+                className="font-bold text-green-600 hover:text-green-700 transition-colors"
+              >
                 Sign up now
-              </a>
+              </button>
             </p>
           </div>
         </div>

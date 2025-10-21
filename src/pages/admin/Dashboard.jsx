@@ -73,68 +73,7 @@ export default function Dashboard() {
         ))}
       </div>
 
-      {/* Recent Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Recent Orders */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">
-            Recent Orders
-          </h2>
-          <div className="space-y-4">
-            {[1, 2, 3, 4].map((item) => (
-              <div
-                key={item}
-                className="flex items-center justify-between border-b pb-3"
-              >
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                    <span className="text-green-600 font-semibold">#{item}</span>
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-800">
-                      Order #{1000 + item}
-                    </p>
-                    <p className="text-sm text-gray-500">2 hours ago</p>
-                  </div>
-                </div>
-                <span className="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm font-medium">
-                  Completed
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Top Products */}
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">Top Products</h2>
-          <div className="space-y-4">
-            {[
-              { name: "Emerald Ring", sales: 234 },
-              { name: "Diamond Necklace", sales: 189 },
-              { name: "Gold Bracelet", sales: 156 },
-              { name: "Ruby Earrings", sales: 142 },
-            ].map((product, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between border-b pb-3"
-              >
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                    <span className="text-purple-600 font-semibold">
-                      {index + 1}
-                    </span>
-                  </div>
-                  <p className="font-medium text-gray-800">{product.name}</p>
-                </div>
-                <span className="text-gray-600 font-medium">
-                  {product.sales} sales
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+     
 
       {/* Quick Actions */}
       <div className="bg-white rounded-lg shadow-md p-6">
