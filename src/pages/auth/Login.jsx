@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import logo from '../../assets/logo.png';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -48,12 +49,12 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        {/* Logo/Brand Section */}
+        
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl shadow-lg mb-4">
-            <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl shadow-lg mb-4">
+            <div className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <img src={logo} alt="Gemora Logo" />
+            </div>
           </div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">
             Welcome Back

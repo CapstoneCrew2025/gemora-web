@@ -1,29 +1,21 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-// Layouts
+
 import AdminLayout from '../layouts/AdminLayouts';
 import UserLayout from '../layouts/UserLayout';
+import AdminDashboard from '../pages/admin/Dashboard';
+import UserDashboard from '../pages/user/Dashboard';
 
-// Pages - Dashboard
-import Dashboard from '../pages/Dashboard/Dashboard';
-
-// Pages - Users
-import UserList from '../pages/Users/UserList';
 
 const PrivateRoutes = () => {
-  // TODO: Add authentication check here
-  // const { isAuthenticated, userRole } = useAuth();
-  
-  // if (!isAuthenticated) {
-  //   return <Navigate to="/login" replace />;
-  // }
+
 
   return (
     <Routes>
       {/* ==================== ADMIN ROUTES ==================== */}
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<Navigate to="/admin/dashboard" replace />} />
-        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="dashboard" element={<AdminDashboard />} />
         <Route path="users" element={<UserList />} />
         <Route 
           path="products" 
@@ -50,7 +42,7 @@ const PrivateRoutes = () => {
       {/* ==================== USER ROUTES ==================== */}
       <Route path="/user" element={<UserLayout />}>
         <Route index element={<Navigate to="/user/dashboard" replace />} />
-        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="dashboard" element={<UserDashboard />} />
         <Route 
           path="my-orders" 
           element={<div className="text-2xl font-bold">My Orders Page</div>} 
