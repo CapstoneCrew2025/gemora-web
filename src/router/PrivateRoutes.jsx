@@ -1,14 +1,19 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
-
+// Layouts
 import AdminLayout from '../layouts/AdminLayouts';
 import UserLayout from '../layouts/UserLayout';
+
+// Pages
 import AdminDashboard from '../pages/admin/Dashboard';
 import UserDashboard from '../pages/user/Dashboard';
 
-
 const PrivateRoutes = () => {
+  const { role } = useAuth();
 
+  // Redirect to appropriate dashboard based on role
+  const defaultRedirect = role === 'ADMIN' ? '/admin/dashboard' : '/user/dashboard';
 
   return (
     <Routes>
@@ -16,7 +21,10 @@ const PrivateRoutes = () => {
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<Navigate to="/admin/dashboard" replace />} />
         <Route path="dashboard" element={<AdminDashboard />} />
-        <Route path="users" element={<UserList />} />
+        <Route 
+          path="users" 
+          element={<div className="text-2xl font-bold">Users Page</div>} 
+        />
         <Route 
           path="products" 
           element={<div className="text-2xl font-bold">Products Page</div>} 
@@ -65,8 +73,11 @@ const PrivateRoutes = () => {
         />
       </Route>
 
+      {/* Default redirect based on role */}
+      <Route path="/" element={<Navigate to={defaultRedirect} replace />} />
+      
       {/* Fallback for undefined routes */}
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      <Route path="*" element={<Navigate to={defaultRedirect} replace />} />
     </Routes>
   );
 };

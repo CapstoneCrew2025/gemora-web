@@ -1,7 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import logo from '../../assets/logo.png';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { login } = useAuth();
+  
   const [formData, setFormData] = useState({
     username: '',
     password: ''
@@ -30,17 +35,26 @@ const Login = () => {
       return;
     }
 
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.username)) {
+      setError('Please enter a valid email address');
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      // TODO: Implement actual login API call
-      console.log('Login attempt:', formData);
+      // Call login API
+      const response = await login(formData.username, formData.password);
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Navigate to dashboard on success
-      // window.location.href = '/dashboard';
+      // Navigate based on role
+      if (response.role === 'ADMIN') {
+        navigate('/admin/dashboard');
+      } else if (response.role === 'USER') {
+        navigate('/user/dashboard');
+      }
     } catch (err) {
-      setError('Invalid username or password');
+      setError(err.message || 'Invalid email or password');
     } finally {
       setIsLoading(false);
     }

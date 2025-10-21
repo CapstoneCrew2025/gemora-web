@@ -1,16 +1,19 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = ({ toggleSidebar, isSidebarOpen }) => {
+  const navigate = useNavigate();
+  const { logout, user: authUser, role } = useAuth();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
-  // Mock user data - replace with actual user data from context/state
+  // User data from auth context
   const user = {
-    name: 'John Doe',
-    email: 'john.doe@gemora.com',
-    avatar: null,
-    role: 'Admin'
+    name: authUser?.name || 'User',
+    email: authUser?.email || 'user@gemora.com',
+    avatar: authUser?.avatar || null,
+    role: role === 'ADMIN' ? 'Admin' : 'User'
   };
 
   const notifications = [
@@ -20,8 +23,8 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }) => {
   ];
 
   const handleLogout = () => {
-    // TODO: Implement logout logic
-    console.log('Logging out...');
+    logout();
+    navigate('/login');
   };
 
   return (
