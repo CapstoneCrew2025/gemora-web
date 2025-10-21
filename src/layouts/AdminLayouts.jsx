@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import AdminSidebar from '../components/AdminSidebar';
 
 const AdminLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -16,11 +16,11 @@ const AdminLayout = () => {
       <Navbar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
       {/* Sidebar */}
-      <Sidebar isOpen={isSidebarOpen} userRole="admin" />
+      <AdminSidebar isOpen={isSidebarOpen} />
 
       {/* Main Content */}
       <div
-        className={`pt-16 transition-all duration-300 ${
+        className={`pt-20 transition-all duration-300 ${
           isSidebarOpen ? 'lg:ml-64' : 'lg:ml-0'
         }`}
       >

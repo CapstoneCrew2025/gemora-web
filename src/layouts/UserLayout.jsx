@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import UserSidebar from '../components/UserSidebar';
 
 const UserLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -16,11 +16,11 @@ const UserLayout = () => {
       <Navbar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
       {/* Sidebar */}
-      <Sidebar isOpen={isSidebarOpen} userRole="user" />
+      <UserSidebar isOpen={isSidebarOpen} />
 
       {/* Main Content */}
       <div
-        className={`pt-16 transition-all duration-300 ${
+        className={`pt-20 transition-all duration-300 ${
           isSidebarOpen ? 'lg:ml-64' : 'lg:ml-0'
         }`}
       >
