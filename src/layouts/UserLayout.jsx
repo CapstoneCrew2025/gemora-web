@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 
-const AdminLayout = () => {
+const UserLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
@@ -16,7 +16,7 @@ const AdminLayout = () => {
       <Navbar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
       {/* Sidebar */}
-      <Sidebar isOpen={isSidebarOpen} userRole="admin" />
+      <Sidebar isOpen={isSidebarOpen} userRole="user" />
 
       {/* Main Content */}
       <div
@@ -32,4 +32,4 @@ const AdminLayout = () => {
   );
 };
 
-export default AdminLayout;
+export default UserLayout;
