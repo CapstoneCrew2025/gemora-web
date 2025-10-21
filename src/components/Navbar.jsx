@@ -28,14 +28,14 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }) => {
   };
 
   return (
-    <nav className="bg-white border-b border-gray-200 fixed w-full z-30 top-0 shadow-sm">
+    <nav className="bg-gray-500 fixed w-full z-30 top-0 shadow-sm">
       <div className="px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Left Section - Logo and Menu Toggle */}
           <div className="flex items-center">
             <button
               onClick={toggleSidebar}
-              className="p-2 rounded-lg text-gray-600 hover:bg-green-50 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-200"
+              className="p-2 rounded-lg text-gray-600 hover:bg-gray-200 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-200"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isSidebarOpen ? (
@@ -57,30 +57,8 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }) => {
             </Link>
           </div>
 
-          {/* Center Section - Search Bar */}
-          <div className="hidden md:flex flex-1 max-w-2xl mx-8">
-            <div className="relative w-full">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
-              <input
-                type="text"
-                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-gray-50 focus:bg-white transition-all duration-200"
-                placeholder="Search..."
-              />
-            </div>
-          </div>
-
           {/* Right Section - Actions */}
           <div className="flex items-center space-x-2">
-            {/* Search Icon (Mobile) */}
-            <button className="md:hidden p-2 rounded-lg text-gray-600 hover:bg-green-50 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </button>
 
             {/* Notifications */}
             <div className="relative">
@@ -89,7 +67,7 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }) => {
                   setIsNotificationOpen(!isNotificationOpen);
                   setIsProfileOpen(false);
                 }}
-                className="p-2 rounded-lg text-gray-600 hover:bg-green-50 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 relative transition-all duration-200"
+                className="p-2 rounded-lg text-gray-600 hover:bg-gray-200 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 relative transition-all duration-200"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
@@ -134,7 +112,7 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }) => {
                   setIsProfileOpen(!isProfileOpen);
                   setIsNotificationOpen(false);
                 }}
-                className="flex items-center space-x-3 p-1.5 rounded-lg hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-200"
+                className="flex items-center space-x-3 p-1.5 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-200"
               >
                 <div className="w-9 h-9 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white font-semibold">
                   {user.avatar ? (

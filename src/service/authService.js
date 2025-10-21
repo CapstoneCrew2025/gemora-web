@@ -1,28 +1,4 @@
-import axios from 'axios';
-
-const API_BASE_URL = 'http://localhost:8080/api/auth';
-
-// Create axios instance with default config
-const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-// Add token to requests if available
-api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+import apiClient from './axiosConfig';
 
 const authService = {
   /**
@@ -33,7 +9,7 @@ const authService = {
    */
   login: async (email, password) => {
     try {
-      const response = await api.post('/login', {
+      const response = await apiClient.post('/auth/login', {
         email,
         password,
       });
@@ -49,6 +25,34 @@ const authService = {
       // Handle error response
       if (error.response) {
         throw new Error(error.response.data.message || 'Login failed');
+      } else if (error.request) {
+        throw new Error('No response from server. Please check your connection.');
+      } else {
+        throw new Error('An error occurred. Please try again.');
+      }
+    }
+  },
+
+  /**
+   * Register new user with form data (including file uploads)
+   * @param {FormData} formData - Form data with user details and images
+   * @returns {Promise} Response with token and role
+   */
+  register: async (formData) => {
+    try {
+      const response = await apiClient.upload('/auth/register', formData);
+
+      // Store token and role in localStorage
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('role', response.data.role);
+      }
+
+      return response.data;
+    } catch (error) {
+      // Handle error response
+      if (error.response) {
+        throw new Error(error.response.data.message || 'Registration failed');
       } else if (error.request) {
         throw new Error('No response from server. Please check your connection.');
       } else {
