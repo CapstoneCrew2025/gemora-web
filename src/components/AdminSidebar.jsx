@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 
-const AdminSidebar = ({ isOpen }) => {
+const AdminSidebar = ({ isOpen, toggleSidebar }) => {
   const location = useLocation();
 
   const menuItems = [
@@ -30,19 +30,19 @@ const AdminSidebar = ({ isOpen }) => {
 
   return (
     <>
-      {/* Overlay for mobile */}
+      {/* Overlay for mobile - Click to close */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
-          onClick={() => {}}
+          className="fixed inset-0 bg-opacity-50 z-20 lg:hidden transition-opacity duration-300"
+          onClick={toggleSidebar}
         ></div>
       )}
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-40 h-screen pt-22 transition-transform duration-300 ease-in-out bg-gray-400 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        } lg:translate-x-0 w-64`}
+        className={`fixed top-0 left-0 z-40 h-screen pt-20 transition-transform duration-300 ease-in-out bg-gray-500  ${
+          isOpen ? 'translate-x-0' : '-translate-x-full '
+        } lg:translate-x-0 w-64 shadow-xl lg:shadow-none`}
       >
         <div className="h-full px-3 pb-4 overflow-y-auto">
           {/* User Role Badge */}

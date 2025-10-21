@@ -28,7 +28,7 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }) => {
   };
 
   return (
-    <nav className="bg-gray-400 fixed w-full z-30 top-0 shadow-sm">
+    <nav className="bg-gray-500 fixed w-full z-30 top-0 shadow-sm">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Left Section - Logo and Menu Toggle */}
