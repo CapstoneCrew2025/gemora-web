@@ -223,7 +223,7 @@ export default function Register() {
           className={`w-full px-4 py-3 border ${
             errors.name ? 'border-red-500' : 'border-gray-300'
           } rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all`}
-          placeholder="John Doe"
+          placeholder="Enter Your Name "
         />
         {errors.name && (
           <p className="mt-1 text-sm text-red-500">{errors.name}</p>
@@ -242,7 +242,7 @@ export default function Register() {
           className={`w-full px-4 py-3 border ${
             errors.email ? 'border-red-500' : 'border-gray-300'
           } rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all`}
-          placeholder="john.doe@example.com"
+          placeholder="sample@example.com"
         />
         {errors.email && (
           <p className="mt-1 text-sm text-red-500">{errors.email}</p>
@@ -261,7 +261,7 @@ export default function Register() {
           className={`w-full px-4 py-3 border ${
             errors.contactNumber ? 'border-red-500' : 'border-gray-300'
           } rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all`}
-          placeholder="9876543210"
+          placeholder="07xxxxxxxx"
           maxLength="10"
         />
         {errors.contactNumber && (
@@ -329,11 +329,11 @@ export default function Register() {
 
   // Render file upload step
   const renderFileUpload = (fileType, title, description, icon) => (
-    <div className="space-y-4">
-      <div className="text-center mb-6">
-        <div className="text-6xl mb-4">{icon}</div>
-        <h3 className="text-xl font-bold text-gray-800">{title}</h3>
-        <p className="text-gray-600 mt-2">{description}</p>
+    <div className="space-y-3 sm:space-y-4">
+      <div className="text-center mb-4 sm:mb-6">
+        <div className="text-4xl sm:text-6xl mb-3 sm:mb-4">{icon}</div>
+        <h3 className="text-lg sm:text-xl font-bold text-gray-800">{title}</h3>
+        <p className="text-sm sm:text-base text-gray-600 mt-1.5 sm:mt-2">{description}</p>
       </div>
 
       {previews[fileType] ? (
@@ -341,28 +341,28 @@ export default function Register() {
           <img
             src={previews[fileType]}
             alt={title}
-            className="w-full h-64 object-cover rounded-lg border-2 border-green-500"
+            className="w-full h-48 sm:h-64 object-cover rounded-lg border-2 border-green-500"
           />
           <button
             type="button"
             onClick={() => removeFile(fileType)}
-            className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-colors"
+            className="absolute top-2 right-2 bg-red-500 text-white p-1.5 sm:p-2 rounded-full hover:bg-red-600 transition-colors"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
       ) : (
         <label className="block">
-          <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-green-500 transition-all">
-            <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 sm:p-8 text-center cursor-pointer hover:border-green-500 transition-all">
+            <svg className="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
             </svg>
-            <p className="mt-2 text-sm text-gray-600">
+            <p className="mt-2 text-xs sm:text-sm text-gray-600">
               Click to upload or drag and drop
             </p>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-[10px] sm:text-xs text-gray-500 mt-1">
               PNG, JPG, JPEG up to 5MB (Optional)
             </p>
           </div>
@@ -376,34 +376,34 @@ export default function Register() {
       )}
 
       {errors[fileType] && (
-        <p className="text-sm text-red-500 text-center">{errors[fileType]}</p>
+        <p className="text-xs sm:text-sm text-red-500 text-center">{errors[fileType]}</p>
       )}
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 flex items-center justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full">
         {/* Logo and Title */}
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
-            <div className="w-16 h-16  rounded-2xl flex items-center justify-center ">
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="flex justify-center mb-3 sm:mb-4">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center ">
              <img src={logo} alt="Gemora Logo" />
             </div>
           </div>
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
             Create Account
           </h2>
-          <p className="mt-2 text-gray-600">Join Gemora today</p>
+          <p className="mt-1.5 sm:mt-2 text-sm sm:text-base text-gray-600">Join Gemora today</p>
         </div>
 
         {/* Progress Steps */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <div className="flex justify-between items-center">
             {[1, 2, 3, 4].map((step) => (
               <div key={step} className="flex items-center">
                 <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold transition-all ${
+                  className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-semibold text-sm sm:text-base transition-all ${
                     currentStep >= step
                       ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white'
                       : 'bg-gray-200 text-gray-500'
@@ -413,7 +413,7 @@ export default function Register() {
                 </div>
                 {step < 4 && (
                   <div
-                    className={`h-1 w-8 md:w-16 transition-all ${
+                    className={`h-0.5 sm:h-1 w-4 sm:w-8 md:w-16 transition-all ${
                       currentStep > step ? 'bg-green-500' : 'bg-gray-200'
                     }`}
                   ></div>
@@ -421,7 +421,7 @@ export default function Register() {
               </div>
             ))}
           </div>
-          <div className="flex justify-between mt-2 text-xs text-gray-600">
+          <div className="flex justify-between mt-1.5 sm:mt-2 text-[10px] sm:text-xs text-gray-600 px-1">
             <span>Personal</span>
             <span>ID Front</span>
             <span>ID Back</span>
@@ -430,7 +430,7 @@ export default function Register() {
         </div>
 
         {/* Form Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-8">
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl p-5 sm:p-6 md:p-8">
           <form onSubmit={handleSubmit}>
             {/* Step Content */}
             {currentStep === 1 && renderStep1()}
@@ -458,18 +458,18 @@ export default function Register() {
 
             {/* Error Message */}
             {errors.submit && (
-              <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-                <p className="text-sm text-red-600">{errors.submit}</p>
+              <div className="mt-3 sm:mt-4 p-2.5 sm:p-3 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-xs sm:text-sm text-red-600">{errors.submit}</p>
               </div>
             )}
 
             {/* Navigation Buttons */}
-            <div className="mt-6 flex gap-3">
+            <div className="mt-4 sm:mt-6 flex gap-2 sm:gap-3">
               {currentStep > 1 && (
                 <button
                   type="button"
                   onClick={handlePrevious}
-                  className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all font-semibold"
+                  className="flex-1 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all font-semibold"
                 >
                   Previous
                 </button>
@@ -479,7 +479,7 @@ export default function Register() {
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg font-semibold"
+                  className="flex-1 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg font-semibold"
                 >
                   Next
                 </button>
@@ -487,11 +487,11 @@ export default function Register() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? (
                     <span className="flex items-center justify-center">
-                      <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
+                      <svg className="animate-spin h-4 w-4 sm:h-5 sm:w-5 mr-2" viewBox="0 0 24 24">
                         <circle
                           className="opacity-25"
                           cx="12"
@@ -519,8 +519,8 @@ export default function Register() {
         </div>
 
         {/* Login Link */}
-        <div className="mt-6 text-center">
-          <p className="text-gray-600">
+        <div className="mt-4 sm:mt-6 text-center">
+          <p className="text-xs sm:text-sm text-gray-600">
             Already have an account?{' '}
             <button
               onClick={() => navigate('/login')}
