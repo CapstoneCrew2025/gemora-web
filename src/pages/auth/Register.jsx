@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import authService from '../../service/authService';
+import logo from '../../assets/logo.png';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -386,8 +387,8 @@ export default function Register() {
         {/* Logo and Title */}
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-2xl">G</span>
+            <div className="w-16 h-16  rounded-2xl flex items-center justify-center ">
+             <img src={logo} alt="Gemora Logo" />
             </div>
           </div>
           <h2 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
