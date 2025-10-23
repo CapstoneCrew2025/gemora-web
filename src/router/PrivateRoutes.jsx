@@ -8,6 +8,7 @@ import UserLayout from '../layouts/UserLayout';
 // Pages
 import AdminDashboard from '../pages/admin/Dashboard';
 import UserDashboard from '../pages/user/Dashboard';
+import UserManage from '../pages/admin/UserManage';
 
 const PrivateRoutes = () => {
   const { role } = useAuth();
@@ -23,7 +24,7 @@ const PrivateRoutes = () => {
         <Route path="dashboard" element={<AdminDashboard />} />
         <Route 
           path="users" 
-          element={<div className="text-2xl font-bold">Users Page</div>} 
+          element={<UserManage />} 
         />
         <Route 
           path="products" 
