@@ -1,21 +1,3 @@
-/**
- * Axios Configuration
- * 
- * Centralized axios instance with interceptors and helper methods
- * for all API requests in the application.
- * 
- * Features:
- * - Automatic token injection for authenticated requests
- * - Global error handling
- * - Request/Response interceptors
- * - Helper methods for common HTTP operations
- * - File upload/download support
- * 
- * Usage:
- * import apiClient from './axiosConfig';
- * const response = await apiClient.get('/endpoint');
- */
-
 import axios from 'axios';
 
 // API Base URL - Update this for production
