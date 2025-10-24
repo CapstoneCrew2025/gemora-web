@@ -52,7 +52,7 @@ const deleteUser = async (userId) => {
 /**
  * Update user details
  * @param {number} userId - The ID of the user
- * @param {object} userData - Updated user data
+ * @param {object} userData - Updated user data (name, contactNumber)
  * @returns {Promise} Updated user details
  */
 const updateUser = async (userId, userData) => {

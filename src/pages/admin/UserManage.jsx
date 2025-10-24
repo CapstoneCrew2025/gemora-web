@@ -10,6 +10,9 @@ const UserManage = () => {
   const [modalLoading, setModalLoading] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [imageModal, setImageModal] = useState(null); // For full-size image view
+  const [editModal, setEditModal] = useState(null); // For edit user
+  const [editForm, setEditForm] = useState({ name: '', contactNumber: '' });
+  const [editLoading, setEditLoading] = useState(false);
 
   // Helper function to fix image URLs
   const fixImageUrl = (url) => {
@@ -60,6 +63,7 @@ const UserManage = () => {
   // Handle delete user
   const handleDeleteUser = async (userId) => {
     try {
+      setError('');
       await userManageService.deleteUser(userId);
       setUsers(users.filter(user => user.id !== userId));
       setDeleteConfirm(null);
@@ -68,6 +72,61 @@ const UserManage = () => {
       }
     } catch (err) {
       setError(err.message || 'Failed to delete user');
+    }
+  };
+
+  // Open edit modal
+  const handleOpenEditModal = (user) => {
+    setEditForm({
+      name: user.name || '',
+      contactNumber: user.contactNumber || ''
+    });
+    setEditModal(user);
+  };
+
+  // Handle edit form change
+  const handleEditFormChange = (e) => {
+    const { name, value } = e.target;
+    setEditForm(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Handle update user
+  const handleUpdateUser = async (e) => {
+    e.preventDefault();
+    
+    if (!editForm.name.trim()) {
+      setError('Name is required');
+      return;
+    }
+
+    try {
+      setEditLoading(true);
+      setError('');
+      
+      const updatedUser = await userManageService.updateUser(editModal.id, {
+        name: editForm.name.trim(),
+        contactNumber: editForm.contactNumber.trim()
+      });
+
+      // Update users list
+      setUsers(users.map(user => 
+        user.id === editModal.id ? updatedUser : user
+      ));
+
+      // Update selected user if viewing details
+      if (selectedUser?.id === editModal.id) {
+        setSelectedUser(updatedUser);
+      }
+
+      setEditModal(null);
+      setEditForm({ name: '', contactNumber: '' });
+    } catch (err) {
+      setError(err.message || 'Failed to update user');
+    } finally {
+      setEditLoading(false);
     }
   };
 
@@ -197,12 +256,28 @@ const UserManage = () => {
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <button
-                        onClick={() => handleViewUser(user.id)}
-                        className="text-green-600 hover:text-green-800 font-semibold mr-4 transition-colors"
-                      >
-                        View Details
-                      </button>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => handleViewUser(user.id)}
+                          className="text-green-600 hover:text-green-800 font-semibold transition-colors"
+                        >
+                          View
+                        </button>
+                        <button
+                          onClick={() => handleOpenEditModal(user)}
+                          className="text-blue-600 hover:text-blue-800 font-semibold transition-colors"
+                        >
+                          Edit
+                        </button>
+                        {user.role !== 'ADMIN' && (
+                          <button
+                            onClick={() => setDeleteConfirm(user.id)}
+                            className="text-red-600 hover:text-red-800 font-semibold transition-colors"
+                          >
+                            Delete
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -269,6 +344,27 @@ const UserManage = () => {
                 >
                   View Details
                 </button>
+                
+                <div className="grid grid-cols-2 gap-2 mt-2">
+                  <button
+                    onClick={() => handleOpenEditModal(user)}
+                    className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded-lg transition-colors"
+                  >
+                    Edit
+                  </button>
+                  {user.role !== 'ADMIN' ? (
+                    <button
+                      onClick={() => setDeleteConfirm(user.id)}
+                      className="bg-red-600 hover:bg-red-700 text-white text-sm font-semibold py-2 px-4 rounded-lg transition-colors"
+                    >
+                      Delete
+                    </button>
+                  ) : (
+                    <div className="bg-gray-200 text-gray-500 text-sm font-semibold py-2 px-4 rounded-lg text-center cursor-not-allowed">
+                      Protected
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -456,6 +552,15 @@ const UserManage = () => {
                     >
                       Close
                     </button>
+                    <button
+                      onClick={() => {
+                        handleCloseModal();
+                        handleOpenEditModal(selectedUser);
+                      }}
+                      className="flex-1 px-4 sm:px-6 py-2.5 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors text-sm sm:text-base"
+                    >
+                      Edit User
+                    </button>
                     {selectedUser.role !== 'ADMIN' && (
                       <button
                         onClick={() => setDeleteConfirm(selectedUser.id)}
@@ -474,7 +579,7 @@ const UserManage = () => {
 
       {/* Delete Confirmation Modal */}
       {deleteConfirm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-white bg-opacity-50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6">
             <div className="text-center">
               <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
@@ -545,6 +650,130 @@ const UserManage = () => {
                 Click outside the image or press the X button to close
               </p>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Edit User Modal */}
+      {editModal && (
+        <div className="fixed inset-0 bg-white bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-md w-full">
+            {/* Modal Header */}
+            <div className="bg-gradient-to-r from-green-500 to-green-600 p-4 sm:p-6 rounded-t-xl">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <div className="h-12 w-12 bg-white rounded-full flex items-center justify-center shadow-lg mr-3">
+                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-bold text-white">Edit User</h2>
+                    <p className="text-blue-100 text-sm">Update user information</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    setEditModal(null);
+                    setEditForm({ name: '', contactNumber: '' });
+                    setError('');
+                  }}
+                  className="text-white hover:text-gray-200 transition-colors"
+                  disabled={editLoading}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Body */}
+            <form onSubmit={handleUpdateUser} className="p-6">
+              <div className="space-y-4">
+                {/* Name Field */}
+                <div>
+                  <label htmlFor="edit-name" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Full Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="edit-name"
+                    name="name"
+                    value={editForm.name}
+                    onChange={handleEditFormChange}
+                    required
+                    disabled={editLoading}
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all disabled:bg-gray-100 disabled:cursor-not-allowed"
+                    placeholder="Enter full name"
+                  />
+                </div>
+
+                {/* Contact Number Field */}
+                <div>
+                  <label htmlFor="edit-contact" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Contact Number
+                  </label>
+                  <input
+                    type="tel"
+                    id="edit-contact"
+                    name="contactNumber"
+                    value={editForm.contactNumber}
+                    onChange={handleEditFormChange}
+                    disabled={editLoading}
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all disabled:bg-gray-100 disabled:cursor-not-allowed"
+                    placeholder="Enter contact number"
+                  />
+                </div>
+
+                {/* User Info Display */}
+                <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-gray-600">Email:</span>
+                    <span className="font-semibold text-gray-900">{editModal.email}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm mt-2">
+                    <span className="text-gray-600">Role:</span>
+                    <span className={`px-2 py-1 text-xs font-semibold rounded-full border ${getRoleBadgeColor(editModal.role)}`}>
+                      {editModal.role}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="mt-6 flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEditModal(null);
+                    setEditForm({ name: '', contactNumber: '' });
+                    setError('');
+                  }}
+                  disabled={editLoading}
+                  className="flex-1 px-4 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={editLoading}
+                  className="flex-1 px-4 py-2.5 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                >
+                  {editLoading ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Updating...
+                    </>
+                  ) : (
+                    'Update User'
+                  )}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
