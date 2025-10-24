@@ -117,17 +117,6 @@ const apiClient = {
   },
 
   /**
-   * PATCH request
-   * @param {string} url - Endpoint URL
-   * @param {object} data - Request body data
-   * @param {object} config - Axios config options
-   * @returns {Promise} Axios response
-   */
-  patch: (url, data = {}, config = {}) => {
-    return axiosInstance.patch(url, data, config);
-  },
-
-  /**
    * DELETE request
    * @param {string} url - Endpoint URL
    * @param {object} config - Axios config options
@@ -151,29 +140,6 @@ const apiClient = {
       },
       onUploadProgress,
     });
-  },
-
-  /**
-   * Download file
-   * @param {string} url - Endpoint URL
-   * @param {string} filename - File name for download
-   * @returns {Promise} Axios response
-   */
-  download: async (url, filename) => {
-    const response = await axiosInstance.get(url, {
-      responseType: 'blob',
-    });
-    
-    // Create blob link to download
-    const urlBlob = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement('a');
-    link.href = urlBlob;
-    link.setAttribute('download', filename);
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    
-    return response;
   },
 };
 
