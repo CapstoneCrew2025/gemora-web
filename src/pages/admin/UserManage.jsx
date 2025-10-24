@@ -277,7 +277,7 @@ const UserManage = () => {
 
       {/* User Details Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" onClick={handleCloseModal}>
+        <div className="fixed inset-0 bg-white bg-opacity-50 z-50 flex items-center justify-center p-4" onClick={handleCloseModal}>
           <div className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             {modalLoading ? (
               <div className="p-8 sm:p-12 text-center">
