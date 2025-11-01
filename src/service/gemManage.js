@@ -10,8 +10,19 @@ const getAllPendingGems = async () => {
   }
 };
 
+const approveGem = async (gemId) => {
+  try {
+    const response = await apiClient.put(`/admin/gems/${gemId}/approve`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error approving gem ${gemId}:`, error);
+    throw error.response?.data?.message || 'Failed to approve gem';
+  }
+};
+
 const gemManageService = {
   getAllPendingGems,
+  approveGem,
 };
 
 export default gemManageService;

@@ -9,6 +9,8 @@ const GemManage = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalLoading, setModalLoading] = useState(false);
   const [imageModal, setImageModal] = useState(null);
+  const [approveConfirm, setApproveConfirm] = useState(null);
+  const [actionLoading, setActionLoading] = useState(false);
 
   const fixImageUrl = (url) => {
     if (!url) return null;
@@ -40,6 +42,25 @@ const GemManage = () => {
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedGem(null);
+  };
+
+  const handleApproveGem = async (gemId) => {
+    try {
+      setActionLoading(true);
+      setError('');
+      const approvedGem = await gemManageService.approveGem(gemId);
+      
+      setGems(gems.filter(gem => gem.id !== gemId));
+      setApproveConfirm(null);
+      
+      if (selectedGem?.id === gemId) {
+        handleCloseModal();
+      }
+    } catch (err) {
+      setError(err.message || 'Failed to approve gem');
+    } finally {
+      setActionLoading(false);
+    }
   };
 
   const getStatusBadgeColor = (status) => {
@@ -431,11 +452,13 @@ const GemManage = () => {
                   Close
                 </button>
                 <button
+                  onClick={() => setApproveConfirm(selectedGem.id)}
                   className="flex-1 px-4 sm:px-6 py-2.5 sm:py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors text-sm sm:text-base"
                 >
                   Reject
                 </button>
                 <button
+                  onClick={() => setApproveConfirm(selectedGem.id)}
                   className="flex-1 px-4 sm:px-6 py-2.5 sm:py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-colors text-sm sm:text-base"
                 >
                   Approve
@@ -481,6 +504,51 @@ const GemManage = () => {
               <p className="text-white text-xs sm:text-sm opacity-75">
                 Click outside the image or press the X button to close
               </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Approve Confirmation Modal */}
+      {approveConfirm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-[70] flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6">
+            <div className="text-center">
+              <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                <svg className="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Approve Gem Listing</h3>
+              <p className="text-sm text-gray-600 mb-6">
+                Are you sure you want to approve this gem listing? It will become visible to all users.
+              </p>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setApproveConfirm(null)}
+                  disabled={actionLoading}
+                  className="flex-1 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => handleApproveGem(approveConfirm)}
+                  disabled={actionLoading}
+                  className="flex-1 px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                >
+                  {actionLoading ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Approving...
+                    </>
+                  ) : (
+                    'Approve'
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>
