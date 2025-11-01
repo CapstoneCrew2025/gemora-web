@@ -69,7 +69,7 @@ const Login = () => {
       <div className="absolute -bottom-8 left-1/2 w-72 h-72 bg-teal-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
     </div>
 
-    <div className="w-full max-w-xl relative z-10">
+    <div className="w-full max-w-lg relative z-10">
       {/* Logo and Header */}
       <div className="text-center mb-8">
         <div className="flex justify-center mb-6">
@@ -112,8 +112,8 @@ const Login = () => {
       </div>
 
       {/* Login Card */}
-      <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl p-8 border border-white/20">
-        <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl p-7 border border-white/20">
+        <form onSubmit={handleSubmit} className="space-y-5">
           {/* Error Message */}
           {error && (
             <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-lg animate-shake">
@@ -212,7 +212,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full relative group overflow-hidden bg-gradient-to-r from-emerald-500 to-green-600 text-white font-bold py-4 px-6 rounded-xl hover:from-emerald-600 hover:to-green-700 focus:outline-none focus:ring-4 focus:ring-emerald-300 transform transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg hover:shadow-xl"
+            className="w-full relative group overflow-hidden bg-gradient-to-r from-emerald-500 to-green-600 text-white font-bold py-3.5 px-6 rounded-xl hover:from-emerald-600 hover:to-green-700 focus:outline-none focus:ring-4 focus:ring-emerald-300 transform transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg hover:shadow-xl"
           >
             <span className="relative z-10 flex items-center justify-center">
               {isLoading ? (
@@ -236,7 +236,7 @@ const Login = () => {
           </button>
 
           {/* Divider */}
-          <div className="relative my-6">
+          <div className="relative my-5">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300"></div>
             </div>
@@ -272,7 +272,7 @@ const Login = () => {
         </form>
 
         {/* Sign Up Link */}
-        <div className="mt-8 text-center">
+        <div className="mt-7 text-center">
           <p className="text-sm text-gray-600">
             Don't have an account?{' '}
             <button
