@@ -272,7 +272,7 @@ const GemManage = () => {
       )}
 
       {showModal && selectedGem && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" onClick={handleCloseModal}>
+        <div className="fixed inset-0 bg-white bg-opacity-50 z-50 flex items-center justify-center p-4" onClick={handleCloseModal}>
           <div className="bg-white rounded-xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <div className="bg-gradient-to-r from-emerald-500 to-green-600 p-4 sm:p-6 rounded-t-xl">
               <div className="flex items-center justify-between">
@@ -511,7 +511,7 @@ const GemManage = () => {
 
       {/* Approve Confirmation Modal */}
       {approveConfirm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-[70] flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-white bg-opacity-50 z-[70] flex items-center justify-center p-4">
           <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6">
             <div className="text-center">
               <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
