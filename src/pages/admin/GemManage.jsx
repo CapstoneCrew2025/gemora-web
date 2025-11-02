@@ -11,6 +11,8 @@ const GemManage = () => {
   const [imageModal, setImageModal] = useState(null);
   const [approveConfirm, setApproveConfirm] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
+  const [rejectModal, setRejectModal] = useState(null);
+  const [rejectReason, setRejectReason] = useState('');
 
   const fixImageUrl = (url) => {
     if (!url) return null;
@@ -58,6 +60,33 @@ const GemManage = () => {
       }
     } catch (err) {
       setError(err.message || 'Failed to approve gem');
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleRejectGem = async (e) => {
+    e.preventDefault();
+    
+    if (!rejectReason.trim()) {
+      setError('Rejection reason is required');
+      return;
+    }
+
+    try {
+      setActionLoading(true);
+      setError('');
+      const rejectedGem = await gemManageService.rejectGem(rejectModal, rejectReason.trim());
+      
+      setGems(gems.filter(gem => gem.id !== rejectModal));
+      setRejectModal(null);
+      setRejectReason('');
+      
+      if (selectedGem?.id === rejectModal) {
+        handleCloseModal();
+      }
+    } catch (err) {
+      setError(err.message || 'Failed to reject gem');
     } finally {
       setActionLoading(false);
     }
@@ -452,7 +481,10 @@ const GemManage = () => {
                   Close
                 </button>
                 <button
-                  onClick={() => setApproveConfirm(selectedGem.id)}
+                  onClick={() => {
+                    setRejectModal(selectedGem.id);
+                    setRejectReason('');
+                  }}
                   className="flex-1 px-4 sm:px-6 py-2.5 sm:py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors text-sm sm:text-base"
                 >
                   Reject
@@ -550,6 +582,78 @@ const GemManage = () => {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Reject Modal with Reason */}
+      {rejectModal && (
+        <div className="fixed inset-0 bg-white bg-opacity-50 z-[70] flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-6">
+            <div className="text-center mb-6">
+              <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
+                <svg className="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Reject Gem Listing</h3>
+              <p className="text-sm text-gray-600">
+                Please provide a reason for rejecting this gem listing. This will be sent to the seller.
+              </p>
+            </div>
+
+            <form onSubmit={handleRejectGem}>
+              <div className="mb-6">
+                <label htmlFor="rejectReason" className="block text-sm font-semibold text-gray-700 mb-2">
+                  Rejection Reason <span className="text-red-500">*</span>
+                </label>
+                <textarea
+                  id="rejectReason"
+                  rows="4"
+                  value={rejectReason}
+                  onChange={(e) => setRejectReason(e.target.value)}
+                  disabled={actionLoading}
+                  required
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all resize-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                  placeholder="e.g., Images are unclear, certification details missing, price not justified..."
+                />
+                <p className="mt-2 text-xs text-gray-500">
+                  Be specific and professional in your feedback.
+                </p>
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setRejectModal(null);
+                    setRejectReason('');
+                    setError('');
+                  }}
+                  disabled={actionLoading}
+                  className="flex-1 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={actionLoading || !rejectReason.trim()}
+                  className="flex-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                >
+                  {actionLoading ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Rejecting...
+                    </>
+                  ) : (
+                    'Reject Listing'
+                  )}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

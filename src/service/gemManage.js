@@ -20,9 +20,20 @@ const approveGem = async (gemId) => {
   }
 };
 
+const rejectGem = async (gemId, reason) => {
+  try {
+    const response = await apiClient.put(`/admin/gems/${gemId}/reject?reason=${encodeURIComponent(reason)}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error rejecting gem ${gemId}:`, error);
+    throw error.response?.data?.message || 'Failed to reject gem';
+  }
+};
+
 const gemManageService = {
   getAllPendingGems,
   approveGem,
+  rejectGem,
 };
 
 export default gemManageService;
