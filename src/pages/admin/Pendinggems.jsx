@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import gemManageService from '../../service/gemManage';
+import gemManageService from '../../service/pendingGems';
 
 const GemManage = () => {
   const [gems, setGems] = useState([]);
