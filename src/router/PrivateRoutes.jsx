@@ -9,7 +9,8 @@ import UserLayout from '../layouts/UserLayout';
 import AdminDashboard from '../pages/admin/Dashboard';
 import UserDashboard from '../pages/user/Dashboard';
 import UserManage from '../pages/admin/UserManage';
-import GemManage from '../pages/admin/GemManage';
+import GemManage from '../pages/admin/Pendinggems';
+import ListedGems from '../pages/admin/ListedGems';
 
 const PrivateRoutes = () => {
   const { role } = useAuth();
@@ -30,6 +31,10 @@ const PrivateRoutes = () => {
         <Route 
           path="gems" 
           element={<GemManage />} 
+        />
+        <Route 
+          path="listed-gems" 
+          element={<ListedGems />} 
         />
         <Route 
           path="products" 
