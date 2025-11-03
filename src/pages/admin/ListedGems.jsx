@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import listedGemsService from '../../service/listedGems';
+import Loader from '../../components/Loader';
 
 const ListedGems = () => {
   const [gems, setGems] = useState([]);
@@ -24,7 +25,10 @@ const ListedGems = () => {
     try {
       setLoading(true);
       setError('');
-      const data = await listedGemsService.getAllApprovedGems();
+      const [data] = await Promise.all([
+        listedGemsService.getAllApprovedGems(),
+        new Promise(resolve => setTimeout(resolve, 500))
+      ]);
       setGems(data);
     } catch (err) {
       setError(err.message || 'Failed to load approved gems');
@@ -89,14 +93,7 @@ const ListedGems = () => {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-green-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600 font-medium">Loading approved gems...</p>
-        </div>
-      </div>
-    );
+    return <Loader message="Loading approved gems..." />;
   }
 
   return (
