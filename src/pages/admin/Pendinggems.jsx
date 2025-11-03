@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import gemManageService from '../../service/pendingGems';
+import Loader from '../../components/Loader';
 
 const GemManage = () => {
   const [gems, setGems] = useState([]);
@@ -27,7 +28,10 @@ const GemManage = () => {
     try {
       setLoading(true);
       setError('');
-      const data = await gemManageService.getAllPendingGems();
+      const [data] = await Promise.all([
+        gemManageService.getAllPendingGems(),
+        new Promise(resolve => setTimeout(resolve, 500))
+      ]);
       setGems(data);
     } catch (err) {
       setError(err.message || 'Failed to load pending gems');
@@ -128,14 +132,7 @@ const GemManage = () => {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-green-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600 font-medium">Loading pending gems...</p>
-        </div>
-      </div>
-    );
+    return <Loader message="Loading pending gems..." />;
   }
 
   return (
