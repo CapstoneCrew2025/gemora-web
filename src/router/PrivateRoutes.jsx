@@ -9,7 +9,7 @@ import UserLayout from '../layouts/UserLayout';
 import AdminDashboard from '../pages/admin/Dashboard';
 import UserDashboard from '../pages/user/Dashboard';
 import UserManage from '../pages/admin/UserManage';
-import GemManage from '../pages/admin/GemManage';
+import GemManage from '../pages/admin/Pendinggems';
 
 const PrivateRoutes = () => {
   const { role } = useAuth();
