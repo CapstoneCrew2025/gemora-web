@@ -1,7 +1,11 @@
 import { useAuth } from "../../context/AuthContext";
+// Import useNavigate hook from React Router for programmatic navigation
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
   const { role, user } = useAuth();
+  // Initialize navigate function to handle routing
+  const navigate = useNavigate();
 
   const stats = [
     {
@@ -121,7 +125,16 @@ export default function Dashboard() {
         ].map((stat, index) => (
           <div
             key={index}
-            className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100"
+            // Add cursor-pointer class and onClick handler for the "Pending Approvals" card (index 0)
+            className={`bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100 ${
+              index === 0 ? 'cursor-pointer' : ''
+            }`}
+            // Navigate to pending gems page when "Pending Approvals" card is clicked
+            onClick={() => {
+              if (index === 0) {
+                navigate('/admin/gems');
+              }
+            }}
           >
             <div className="p-6">
               <div className="flex items-start justify-between mb-4">
