@@ -1,11 +1,42 @@
 import { useAuth } from "../../context/AuthContext";
 // Import useNavigate hook from React Router for programmatic navigation
 import { useNavigate } from "react-router-dom";
+// Import React hooks for state management and side effects
+import { useState, useEffect } from "react";
+// Import the service to fetch pending gems data from the backend
+import gemManageService from "../../service/pendingGems";
 
 export default function Dashboard() {
   const { role, user } = useAuth();
   // Initialize navigate function to handle routing
   const navigate = useNavigate();
+  
+  // State to store the count of pending gems
+  const [pendingGemsCount, setPendingGemsCount] = useState(0);
+  // State to track loading status while fetching data
+  const [isLoadingPendingCount, setIsLoadingPendingCount] = useState(true);
+
+  // useEffect hook to fetch pending gems data when component mounts
+  useEffect(() => {
+    const fetchPendingGemsCount = async () => {
+      try {
+        setIsLoadingPendingCount(true);
+        // Fetch all pending gems from the API
+        const pendingGems = await gemManageService.getAllPendingGems();
+        // Set the count based on the array length
+        setPendingGemsCount(pendingGems?.length || 0);
+      } catch (error) {
+        console.error('Failed to fetch pending gems count:', error);
+        // Set count to 0 if there's an error
+        setPendingGemsCount(0);
+      } finally {
+        // Set loading to false after fetch completes
+        setIsLoadingPendingCount(false);
+      }
+    };
+
+    fetchPendingGemsCount();
+  }, []); // Empty dependency array means this runs once when component mounts
 
   const stats = [
     {
@@ -74,7 +105,8 @@ export default function Dashboard() {
         {[
           {
             title: "Pending Approvals",
-            value: "12",
+            // Display loading indicator or actual count of pending gems
+            value: isLoadingPendingCount ? "..." : pendingGemsCount.toString(),
             change: "+3 today",
             bgColor: "bg-orange-500",
             description: "Gems awaiting valuation review",
