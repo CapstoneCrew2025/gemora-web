@@ -404,10 +404,10 @@ const UserManage = () => {
       )}
 
       {/* User Details Modal */}
-     {/* User Details Modal - IMPROVED VERSION */}
+     {/* User Details Modal - COMPACT & ORGANIZED VERSION */}
 {showModal && (
   <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn" onClick={handleCloseModal}>
-    <div className="bg-white rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto animate-slideUp" onClick={(e) => e.stopPropagation()}>
+    <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[85vh] overflow-y-auto animate-slideUp" onClick={(e) => e.stopPropagation()}>
       {modalLoading ? (
         <div className="p-12 text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-4 border-emerald-500 border-t-transparent mx-auto"></div>
@@ -415,30 +415,30 @@ const UserManage = () => {
         </div>
       ) : selectedUser ? (
         <>
-          {/* Modal Header - Enhanced */}
-          <div className="bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 p-6 sm:p-8 rounded-t-2xl relative overflow-hidden">
+          {/* Modal Header - Compact */}
+          <div className="bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 p-4 sm:p-5 rounded-t-2xl relative overflow-hidden">
             {/* Header Watermark */}
             <div className="absolute inset-0 opacity-10">
-              <svg className="absolute right-0 top-0 w-64 h-64 transform translate-x-16 -translate-y-16" viewBox="0 0 24 24" fill="white">
+              <svg className="absolute right-0 top-0 w-48 h-48 transform translate-x-12 -translate-y-12" viewBox="0 0 24 24" fill="white">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
               </svg>
             </div>
 
             <div className="flex items-center justify-between relative z-10">
               <div className="flex items-center">
-                <div className="h-20 w-20 bg-white rounded-2xl flex items-center justify-center shadow-2xl border-4 border-white/30">
-                  <span className="text-emerald-600 font-black text-3xl font-['Poppins']">{selectedUser.name.charAt(0).toUpperCase()}</span>
+                <div className="h-14 w-14 sm:h-16 sm:w-16 bg-white rounded-xl flex items-center justify-center shadow-xl border-2 border-white/30">
+                  <span className="text-emerald-600 font-black text-2xl sm:text-3xl font-['Poppins']">{selectedUser.name.charAt(0).toUpperCase()}</span>
                 </div>
-                <div className="ml-5">
-                  <h2 className="text-3xl font-black text-white font-['Poppins'] mb-1">{selectedUser.name}</h2>
-                  <div className="flex items-center space-x-2">
-                    <span className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-sm font-bold rounded-full">
-                      User ID: #{selectedUser.id}
+                <div className="ml-3 sm:ml-4">
+                  <h2 className="text-xl sm:text-2xl font-black text-white font-['Poppins']">{selectedUser.name}</h2>
+                  <div className="flex items-center space-x-2 mt-1">
+                    <span className="px-2 py-0.5 bg-white/20 backdrop-blur-sm text-white text-xs font-bold rounded-full">
+                      ID: #{selectedUser.id}
                     </span>
-                    <span className={`px-3 py-1 text-xs font-extrabold rounded-full ${
+                    <span className={`px-2 py-0.5 text-xs font-extrabold rounded-full ${
                       selectedUser.role === 'ADMIN' 
-                        ? 'bg-purple-100 text-purple-700 border-2 border-purple-300' 
-                        : 'bg-blue-100 text-blue-700 border-2 border-blue-300'
+                        ? 'bg-purple-100 text-purple-700 border border-purple-300' 
+                        : 'bg-blue-100 text-blue-700 border border-blue-300'
                     }`}>
                       {selectedUser.role}
                     </span>
@@ -447,58 +447,58 @@ const UserManage = () => {
               </div>
               <button
                 onClick={handleCloseModal}
-                className="text-white hover:text-gray-200 transition-colors bg-white/20 hover:bg-white/30 rounded-xl p-2"
+                className="text-white hover:text-gray-200 transition-colors bg-white/20 hover:bg-white/30 rounded-lg p-1.5"
               >
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
           </div>
 
-          {/* Modal Body */}
-          <div className="p-6 sm:p-8">
-            {/* User Information Section - Improved Layout */}
-            <div className="mb-8">
-              <div className="flex items-center mb-6 pb-4 border-b-2 border-emerald-100">
-                <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center mr-4 shadow-lg">
-                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          {/* Modal Body - Compact */}
+          <div className="p-4 sm:p-6">
+            {/* User Information Section - Compact Grid */}
+            <div className="mb-6">
+              <div className="flex items-center mb-3 pb-2 border-b border-emerald-100">
+                <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-green-600 rounded-lg flex items-center justify-center mr-2 shadow-md">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-black text-gray-900 font-['Poppins']">User Information</h3>
+                <h3 className="text-lg font-black text-gray-900 font-['Poppins']">User Information</h3>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {/* Email Address Card */}
-                <div className="bg-gradient-to-br from-emerald-50 to-green-50 p-6 rounded-2xl border-2 border-emerald-100 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-                  <div className="flex items-start mb-3">
-                    <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center mr-3 shadow-md">
-                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {/* Email Card - Compact */}
+                <div className="bg-gradient-to-br from-emerald-50 to-green-50 p-3 rounded-xl border border-emerald-200 hover:shadow-lg transition-all">
+                  <div className="flex items-start">
+                    <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center mr-2 flex-shrink-0">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
                     </div>
-                    <div className="flex-1">
-                      <p className="text-xs text-emerald-700 font-bold mb-1 uppercase tracking-wide">Email Address</p>
-                      <p className="text-base text-gray-900 font-bold break-all">{selectedUser.email}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs text-emerald-700 font-bold uppercase tracking-wide">Email</p>
+                      <p className="text-sm text-gray-900 font-bold break-all mt-0.5">{selectedUser.email}</p>
                     </div>
                   </div>
                 </div>
 
-                {/* Contact Number Card */}
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-2xl border-2 border-blue-100 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-                  <div className="flex items-start mb-3">
-                    <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center mr-3 shadow-md">
-                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {/* Contact Card - Compact */}
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-3 rounded-xl border border-blue-200 hover:shadow-lg transition-all">
+                  <div className="flex items-start">
+                    <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mr-2 flex-shrink-0">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                       </svg>
                     </div>
-                    <div className="flex-1">
-                      <p className="text-xs text-blue-700 font-bold mb-1 uppercase tracking-wide">Contact Number</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs text-blue-700 font-bold uppercase tracking-wide">Contact</p>
                       {selectedUser.contactNumber ? (
-                        <p className="text-base text-gray-900 font-bold">{selectedUser.contactNumber}</p>
+                        <p className="text-sm text-gray-900 font-bold mt-0.5">{selectedUser.contactNumber}</p>
                       ) : (
-                        <p className="text-base text-gray-400 italic font-medium">Not provided</p>
+                        <p className="text-sm text-gray-400 italic font-medium mt-0.5">Not provided</p>
                       )}
                     </div>
                   </div>
@@ -506,56 +506,56 @@ const UserManage = () => {
               </div>
             </div>
 
-            {/* Identity Documents Section - Improved */}
+            {/* Identity Documents Section - Compact */}
             <div>
-              <div className="flex items-center mb-6 pb-4 border-b-2 border-emerald-100">
-                <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center mr-4 shadow-lg">
-                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex items-center mb-3 pb-2 border-b border-emerald-100">
+                <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-green-600 rounded-lg flex items-center justify-center mr-2 shadow-md">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-black text-gray-900 font-['Poppins']">Identity Documents</h3>
+                <h3 className="text-lg font-black text-gray-900 font-['Poppins']">Identity Documents</h3>
               </div>
 
               {!selectedUser.idFrontImageUrl && !selectedUser.idBackImageUrl && !selectedUser.selfieImageUrl ? (
-                <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-12 rounded-2xl text-center border-2 border-dashed border-gray-300">
-                  <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-8 rounded-xl text-center border-2 border-dashed border-gray-300">
+                  <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                   </div>
-                  <p className="text-xl font-bold text-gray-700 mb-2 font-['Poppins']">No documents uploaded</p>
-                  <p className="text-sm text-gray-500 font-medium">This user hasn't provided any identity documents yet.</p>
+                  <p className="text-base font-bold text-gray-700 mb-1 font-['Poppins']">No documents uploaded</p>
+                  <p className="text-xs text-gray-500">This user hasn't provided identity documents.</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {/* ID Front Image */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {/* ID Front - Compact */}
                   {selectedUser.idFrontImageUrl && (
-                    <div className="bg-white p-5 rounded-2xl border-2 border-emerald-100 hover:border-emerald-400 transition-all hover:shadow-2xl group">
-                      <div className="flex items-center justify-between mb-4">
+                    <div className="bg-white p-3 rounded-xl border border-emerald-100 hover:border-emerald-400 transition-all hover:shadow-lg group">
+                      <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center">
-                          <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center mr-2">
-                            <svg className="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                          <div className="w-6 h-6 bg-emerald-100 rounded flex items-center justify-center mr-1.5">
+                            <svg className="w-3.5 h-3.5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
                             </svg>
                           </div>
-                          <p className="text-sm font-black text-gray-900">ID Front</p>
+                          <p className="text-xs font-black text-gray-900">ID Front</p>
                         </div>
-                        <span className="px-2 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full">Available</span>
+                        <span className="px-1.5 py-0.5 bg-emerald-100 text-emerald-700 text-[10px] font-bold rounded">Available</span>
                       </div>
-                      <div onClick={() => setImageModal({ url: fixImageUrl(selectedUser.idFrontImageUrl), title: 'ID Front' })} className="cursor-pointer relative overflow-hidden rounded-xl">
+                      <div onClick={() => setImageModal({ url: fixImageUrl(selectedUser.idFrontImageUrl), title: 'ID Front' })} className="cursor-pointer relative overflow-hidden rounded-lg group">
                         <img 
                           src={fixImageUrl(selectedUser.idFrontImageUrl)} 
                           alt="ID Front" 
-                          className="w-full h-56 object-cover rounded-xl border-2 border-gray-200 group-hover:border-emerald-400 transition-all shadow-md group-hover:scale-105"
+                          className="w-full h-32 object-cover rounded-lg border border-gray-200 group-hover:border-emerald-400 transition-all"
                           onError={(e) => {
                             e.target.onerror = null;
-                            e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="%23f3f4f6"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%236b7280" font-size="14">Image not available</text></svg>';
+                            e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="%23f3f4f6"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%236b7280" font-size="12">Not available</text></svg>';
                           }}
                         />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all rounded-xl flex items-center justify-center">
-                          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white rounded-full p-3">
-                            <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all rounded-lg flex items-center justify-center">
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white rounded-full p-2">
+                            <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                           </div>
@@ -563,40 +563,40 @@ const UserManage = () => {
                       </div>
                       <button 
                         onClick={() => setImageModal({ url: fixImageUrl(selectedUser.idFrontImageUrl), title: 'ID Front' })}
-                        className="mt-4 w-full text-center text-sm text-white bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 font-extrabold py-3 rounded-xl transition-all shadow-md hover:shadow-lg"
+                        className="mt-2 w-full text-center text-xs text-white bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 font-bold py-2 rounded-lg transition-all"
                       >
-                        View Full Size →
+                        View Full Size
                       </button>
                     </div>
                   )}
 
-                  {/* ID Back Image */}
+                  {/* ID Back - Compact */}
                   {selectedUser.idBackImageUrl && (
-                    <div className="bg-white p-5 rounded-2xl border-2 border-emerald-100 hover:border-emerald-400 transition-all hover:shadow-2xl group">
-                      <div className="flex items-center justify-between mb-4">
+                    <div className="bg-white p-3 rounded-xl border border-emerald-100 hover:border-emerald-400 transition-all hover:shadow-lg group">
+                      <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center">
-                          <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center mr-2">
-                            <svg className="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                          <div className="w-6 h-6 bg-emerald-100 rounded flex items-center justify-center mr-1.5">
+                            <svg className="w-3.5 h-3.5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
                             </svg>
                           </div>
-                          <p className="text-sm font-black text-gray-900">ID Back</p>
+                          <p className="text-xs font-black text-gray-900">ID Back</p>
                         </div>
-                        <span className="px-2 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full">Available</span>
+                        <span className="px-1.5 py-0.5 bg-emerald-100 text-emerald-700 text-[10px] font-bold rounded">Available</span>
                       </div>
-                      <div onClick={() => setImageModal({ url: fixImageUrl(selectedUser.idBackImageUrl), title: 'ID Back' })} className="cursor-pointer relative overflow-hidden rounded-xl">
+                      <div onClick={() => setImageModal({ url: fixImageUrl(selectedUser.idBackImageUrl), title: 'ID Back' })} className="cursor-pointer relative overflow-hidden rounded-lg group">
                         <img 
                           src={fixImageUrl(selectedUser.idBackImageUrl)} 
                           alt="ID Back" 
-                          className="w-full h-56 object-cover rounded-xl border-2 border-gray-200 group-hover:border-emerald-400 transition-all shadow-md group-hover:scale-105"
+                          className="w-full h-32 object-cover rounded-lg border border-gray-200 group-hover:border-emerald-400 transition-all"
                           onError={(e) => {
                             e.target.onerror = null;
-                            e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="%23f3f4f6"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%236b7280" font-size="14">Image not available</text></svg>';
+                            e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="%23f3f4f6"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%236b7280" font-size="12">Not available</text></svg>';
                           }}
                         />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all rounded-xl flex items-center justify-center">
-                          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white rounded-full p-3">
-                            <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all rounded-lg flex items-center justify-center">
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white rounded-full p-2">
+                            <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                           </div>
@@ -604,40 +604,40 @@ const UserManage = () => {
                       </div>
                       <button 
                         onClick={() => setImageModal({ url: fixImageUrl(selectedUser.idBackImageUrl), title: 'ID Back' })}
-                        className="mt-4 w-full text-center text-sm text-white bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 font-extrabold py-3 rounded-xl transition-all shadow-md hover:shadow-lg"
+                        className="mt-2 w-full text-center text-xs text-white bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 font-bold py-2 rounded-lg transition-all"
                       >
-                        View Full Size →
+                        View Full Size
                       </button>
                     </div>
                   )}
 
-                  {/* Selfie Image */}
+                  {/* Selfie - Compact */}
                   {selectedUser.selfieImageUrl && (
-                    <div className="bg-white p-5 rounded-2xl border-2 border-emerald-100 hover:border-emerald-400 transition-all hover:shadow-2xl group">
-                      <div className="flex items-center justify-between mb-4">
+                    <div className="bg-white p-3 rounded-xl border border-emerald-100 hover:border-emerald-400 transition-all hover:shadow-lg group">
+                      <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center">
-                          <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center mr-2">
-                            <svg className="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                          <div className="w-6 h-6 bg-emerald-100 rounded flex items-center justify-center mr-1.5">
+                            <svg className="w-3.5 h-3.5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
                             </svg>
                           </div>
-                          <p className="text-sm font-black text-gray-900">Selfie</p>
+                          <p className="text-xs font-black text-gray-900">Selfie</p>
                         </div>
-                        <span className="px-2 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full">Available</span>
+                        <span className="px-1.5 py-0.5 bg-emerald-100 text-emerald-700 text-[10px] font-bold rounded">Available</span>
                       </div>
-                      <div onClick={() => setImageModal({ url: fixImageUrl(selectedUser.selfieImageUrl), title: 'Selfie' })} className="cursor-pointer relative overflow-hidden rounded-xl">
+                      <div onClick={() => setImageModal({ url: fixImageUrl(selectedUser.selfieImageUrl), title: 'Selfie' })} className="cursor-pointer relative overflow-hidden rounded-lg group">
                         <img 
                           src={fixImageUrl(selectedUser.selfieImageUrl)} 
                           alt="Selfie" 
-                          className="w-full h-56 object-cover rounded-xl border-2 border-gray-200 group-hover:border-emerald-400 transition-all shadow-md group-hover:scale-105"
+                          className="w-full h-32 object-cover rounded-lg border border-gray-200 group-hover:border-emerald-400 transition-all"
                           onError={(e) => {
                             e.target.onerror = null;
-                            e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="%23f3f4f6"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%236b7280" font-size="14">Image not available</text></svg>';
+                            e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="%23f3f4f6"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%236b7280" font-size="12">Not available</text></svg>';
                           }}
                         />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all rounded-xl flex items-center justify-center">
-                          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white rounded-full p-3">
-                            <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all rounded-lg flex items-center justify-center">
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white rounded-full p-2">
+                            <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                           </div>
@@ -645,9 +645,9 @@ const UserManage = () => {
                       </div>
                       <button 
                         onClick={() => setImageModal({ url: fixImageUrl(selectedUser.selfieImageUrl), title: 'Selfie' })}
-                        className="mt-4 w-full text-center text-sm text-white bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 font-extrabold py-3 rounded-xl transition-all shadow-md hover:shadow-lg"
+                        className="mt-2 w-full text-center text-xs text-white bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 font-bold py-2 rounded-lg transition-all"
                       >
-                        View Full Size →
+                        View Full Size
                       </button>
                     </div>
                   )}
@@ -655,13 +655,13 @@ const UserManage = () => {
               )}
             </div>
 
-            {/* Action Buttons - Improved */}
-            <div className="mt-8 pt-6 border-t-2 border-gray-100 flex flex-col sm:flex-row gap-3">
+            {/* Action Buttons - Compact */}
+            <div className="mt-6 pt-4 border-t border-gray-200 flex flex-col sm:flex-row gap-2">
               <button
                 onClick={handleCloseModal}
-                className="flex-1 px-8 py-4 bg-gray-100 hover:bg-gray-200 text-gray-800 font-extrabold rounded-xl transition-all text-base flex items-center justify-center group"
+                className="flex-1 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold rounded-lg transition-all text-sm flex items-center justify-center"
               >
-                <svg className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
                 Close
@@ -671,9 +671,9 @@ const UserManage = () => {
                   handleCloseModal();
                   handleOpenEditModal(selectedUser);
                 }}
-                className="flex-1 px-8 py-4 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-extrabold rounded-xl transition-all text-base shadow-lg hover:shadow-xl font-['Poppins'] flex items-center justify-center group"
+                className="flex-1 px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-bold rounded-lg transition-all text-sm shadow-md font-['Poppins'] flex items-center justify-center"
               >
-                <svg className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                 </svg>
                 Edit User
@@ -684,12 +684,12 @@ const UserManage = () => {
                     handleCloseModal();
                     setDeleteConfirm(selectedUser.id);
                   }}
-                  className="flex-1 px-8 py-4 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-extrabold rounded-xl transition-all text-base shadow-lg hover:shadow-xl font-['Poppins'] flex items-center justify-center group"
+                  className="flex-1 px-4 py-2.5 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold rounded-lg transition-all text-sm shadow-md font-['Poppins'] flex items-center justify-center"
                 >
-                  <svg className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                   </svg>
-                  Delete User
+                  Delete
                 </button>
               )}
             </div>
