@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 // Import the service to fetch pending gems data from the backend
 import gemManageService from "../../service/pendingGems";
+// Import the service to fetch user data from the backend
+import userManageService from "../../service/userManage";
 
 export default function Dashboard() {
   const { role, user } = useAuth();
@@ -13,8 +15,13 @@ export default function Dashboard() {
   
   // State to store the count of pending gems
   const [pendingGemsCount, setPendingGemsCount] = useState(0);
-  // State to track loading status while fetching data
+  // State to track loading status while fetching pending gems data
   const [isLoadingPendingCount, setIsLoadingPendingCount] = useState(true);
+
+  // State to store the count of users
+  const [userCount, setUserCount] = useState(0);
+  // State to track loading status while fetching user count
+  const [isLoadingUserCount, setIsLoadingUserCount] = useState(true);
 
   // useEffect hook to fetch pending gems data when component mounts
   useEffect(() => {
@@ -36,6 +43,28 @@ export default function Dashboard() {
     };
 
     fetchPendingGemsCount();
+  }, []); // Empty dependency array means this runs once when component mounts
+
+  // useEffect hook to fetch user count when component mounts
+  useEffect(() => {
+    const fetchUserCount = async () => {
+      try {
+        setIsLoadingUserCount(true);
+        // Fetch user count from the API
+        const count = await userManageService.getUserCount();
+        // Set the count (API returns the count directly)
+        setUserCount(count || 0);
+      } catch (error) {
+        console.error('Failed to fetch user count:', error);
+        // Set count to 0 if there's an error
+        setUserCount(0);
+      } finally {
+        // Set loading to false after fetch completes
+        setIsLoadingUserCount(false);
+      }
+    };
+
+    fetchUserCount();
   }, []); // Empty dependency array means this runs once when component mounts
 
   const stats = [
@@ -118,14 +147,15 @@ export default function Dashboard() {
             )
           },
           {
-            title: "Active Auctions",
-            value: "45",
-            change: "+8 this week",
-            bgColor: "bg-emerald-500",
-            description: "Live bidding sessions",
+            title: "Manage Users",
+            // Display loading indicator or actual count of users
+            value: isLoadingUserCount ? "..." : userCount.toString(),
+            change: "+5 this week",
+            bgColor: "bg-blue-500",
+            description: "Registered users in system",
             icon: (
               <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
               </svg>
             )
           },
@@ -157,14 +187,18 @@ export default function Dashboard() {
         ].map((stat, index) => (
           <div
             key={index}
-            // Add cursor-pointer class and onClick handler for the "Pending Approvals" card (index 0)
+            // Add cursor-pointer class and onClick handler for clickable cards
             className={`bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100 ${
-              index === 0 ? 'cursor-pointer' : ''
+              index === 0 || index === 1 ? 'cursor-pointer' : ''
             }`}
-            // Navigate to pending gems page when "Pending Approvals" card is clicked
+            // Navigate to appropriate pages when cards are clicked
             onClick={() => {
               if (index === 0) {
+                // Navigate to pending gems page
                 navigate('/admin/gems');
+              } else if (index === 1) {
+                // Navigate to user management page
+                navigate('/admin/users');
               }
             }}
           >
@@ -431,26 +465,18 @@ export default function Dashboard() {
       {/* Quick Actions with Custom Icons */}
       <div className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
         <h2 className="text-xl font-bold text-gray-900 mb-6">Quick Actions</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {[
             { 
               label: 'Review Gems', 
               color: 'from-orange-500 to-red-500', 
-              badge: '12',
+              badge: pendingGemsCount > 0 ? pendingGemsCount.toString() : null,
               icon: (
                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                 </svg>
-              )
-            },
-            { 
-              label: 'Manage Users', 
-              color: 'from-blue-500 to-cyan-500',
-              icon: (
-                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
-                </svg>
-              )
+              ),
+              onClick: () => navigate('/admin/gems')
             },
             { 
               label: 'View Reports', 
@@ -491,6 +517,7 @@ export default function Dashboard() {
           ].map((action, idx) => (
             <button
               key={idx}
+              onClick={action.onClick}
               className={`group relative p-6 bg-gradient-to-br ${action.color} hover:scale-105 rounded-2xl transition-all duration-300 transform hover:shadow-xl text-white`}
             >
               {action.badge && (
