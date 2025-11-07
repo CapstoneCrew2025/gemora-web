@@ -20,6 +20,20 @@ const getAllUsers = async () => {
 };
 
 /**
+ * Get total user count
+ * @returns {Promise} Total number of users
+ */
+const getUserCount = async () => {
+  try {
+    const response = await apiClient.get('/admin/users/count');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user count:', error);
+    throw error.response?.data?.message || 'Failed to fetch user count';
+  }
+};
+
+/**
  * Get user details by ID
  * @param {number} userId - The ID of the user
  * @returns {Promise} User details including ID photos
@@ -67,6 +81,7 @@ const updateUser = async (userId, userData) => {
 
 const userManageService = {
   getAllUsers,
+  getUserCount,
   getUserById,
   deleteUser,
   updateUser,
