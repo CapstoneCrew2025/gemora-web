@@ -21,11 +21,11 @@ const getAllUsers = async () => {
 
 /**
  * Get total user count
- * @returns {Promise} Total number of users
+ * @returns {Promise} Object with count property { count: number }
  */
 const getUserCount = async () => {
   try {
-    const response = await apiClient.get('/admin/users/count');
+    const response = await apiClient.get('/users/count');
     return response.data;
   } catch (error) {
     console.error('Error fetching user count:', error);
