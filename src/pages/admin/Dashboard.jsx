@@ -48,19 +48,26 @@ export default function Dashboard() {
   // useEffect hook to fetch user count when component mounts
   useEffect(() => {
     const fetchUserCount = async () => {
+      console.log('🔄 Starting to fetch users from database...'); // Debug log
       try {
         setIsLoadingUserCount(true);
-        // Fetch user count from the API
-        const count = await userManageService.getUserCount();
-        // Set the count (API returns the count directly)
-        setUserCount(count || 0);
+        // Fetch all users from the same API endpoint used in Manage Users page
+        const users = await userManageService.getAllUsers();
+        console.log('✅ Fetched users from API:', users); // Debug log to see actual response
+        
+        // Count the number of users in the array
+        const count = Array.isArray(users) ? users.length : 0;
+        
+        console.log('📊 Total user count:', count); // Debug log to see parsed count
+        setUserCount(count);
       } catch (error) {
-        console.error('Failed to fetch user count:', error);
+        console.error('❌ Failed to fetch users:', error);
         // Set count to 0 if there's an error
         setUserCount(0);
       } finally {
         // Set loading to false after fetch completes
         setIsLoadingUserCount(false);
+        console.log('✔️ User fetch complete'); // Debug log
       }
     };
 
@@ -147,7 +154,8 @@ export default function Dashboard() {
             )
           },
           {
-            title: "Manage Users",
+            // Display "Manage Users (X)" where X is the user count
+            title: isLoadingUserCount ? "Manage Users" : `Manage Users (${userCount})`,
             // Display loading indicator or actual count of users
             value: isLoadingUserCount ? "..." : userCount.toString(),
             change: "+5 this week",
