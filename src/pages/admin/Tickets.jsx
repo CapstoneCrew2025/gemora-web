@@ -10,6 +10,11 @@ const Tickets = () => {
   const [showModal, setShowModal] = useState(false);
   const [filterStatus, setFilterStatus] = useState('ALL');
   const [filterPriority, setFilterPriority] = useState('ALL');
+  const [showReplyForm, setShowReplyForm] = useState(false);
+  const [replyText, setReplyText] = useState('');
+  const [replyStatus, setReplyStatus] = useState('IN_PROGRESS');
+  const [replyLoading, setReplyLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     fetchTickets();
@@ -39,6 +44,56 @@ const Tickets = () => {
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedTicket(null);
+    setShowReplyForm(false);
+    setReplyText('');
+    setReplyStatus('IN_PROGRESS');
+    setSuccessMessage('');
+  };
+
+  const handleReplySubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!replyText.trim()) {
+      setError('Reply message is required');
+      return;
+    }
+
+    try {
+      setReplyLoading(true);
+      setError('');
+      
+      const replyData = {
+        adminReply: replyText,
+        status: replyStatus
+      };
+      
+      await ticketService.replyToTicket(selectedTicket.id, replyData);
+      
+      // Update the ticket in the list
+      setTickets(tickets.map(ticket => 
+        ticket.id === selectedTicket.id 
+          ? { ...ticket, adminReply: replyText, status: replyStatus }
+          : ticket
+      ));
+      
+      // Update selected ticket
+      setSelectedTicket({
+        ...selectedTicket,
+        adminReply: replyText,
+        status: replyStatus
+      });
+      
+      setSuccessMessage('Reply sent successfully!');
+      setShowReplyForm(false);
+      setReplyText('');
+      
+      // Clear success message after 3 seconds
+      setTimeout(() => setSuccessMessage(''), 3000);
+    } catch (err) {
+      setError(err.message || 'Failed to send reply');
+    } finally {
+      setReplyLoading(false);
+    }
   };
 
   const getStatusBadge = (status) => {
@@ -326,21 +381,102 @@ const Tickets = () => {
                 </div>
               </div>
 
+              {/* Success Message */}
+              {successMessage && (
+                <div className="mb-6 bg-green-50 border border-green-200 text-green-600 px-4 py-3 rounded-lg flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span>{successMessage}</span>
+                  </div>
+                  <button onClick={() => setSuccessMessage('')} className="text-green-800 hover:text-green-900">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+                </div>
+              )}
+
               {/* Admin Reply Section */}
-              {selectedTicket.adminReply ? (
+              {selectedTicket.adminReply && !showReplyForm ? (
                 <div className="mb-6">
                   <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4">
                     <p className="text-sm font-medium text-blue-900 mb-2">Admin Reply:</p>
                     <p className="text-gray-900 whitespace-pre-wrap">{selectedTicket.adminReply}</p>
                   </div>
                 </div>
-              ) : (
+              ) : !showReplyForm ? (
                 <div className="mb-6">
                   <div className="bg-yellow-50 border-l-4 border-yellow-500 rounded-lg p-4">
                     <p className="text-sm font-medium text-yellow-900">
                       No admin reply yet
                     </p>
                   </div>
+                </div>
+              ) : null}
+
+              {/* Reply Form */}
+              {showReplyForm && (
+                <div className="mb-6">
+                  <form onSubmit={handleReplySubmit} className="bg-gray-50 rounded-lg p-4">
+                    <div className="mb-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Your Reply
+                      </label>
+                      <textarea
+                        value={replyText}
+                        onChange={(e) => setReplyText(e.target.value)}
+                        rows="4"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Type your reply here..."
+                        required
+                      />
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Update Status
+                      </label>
+                      <select
+                        value={replyStatus}
+                        onChange={(e) => setReplyStatus(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      >
+                        <option value="OPEN">Open</option>
+                        <option value="IN_PROGRESS">In Progress</option>
+                        <option value="RESOLVED">Resolved</option>
+                        <option value="CLOSED">Closed</option>
+                      </select>
+                    </div>
+
+                    <div className="flex gap-3">
+                      <button
+                        type="submit"
+                        disabled={replyLoading}
+                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                      >
+                        {replyLoading && (
+                          <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                        )}
+                        {replyLoading ? 'Sending...' : 'Send Reply'}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setShowReplyForm(false);
+                          setReplyText('');
+                          setReplyStatus('IN_PROGRESS');
+                        }}
+                        className="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
                 </div>
               )}
 
@@ -368,11 +504,14 @@ const Tickets = () => {
                 >
                   Close
                 </button>
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  Reply to Ticket
-                </button>
+                {!showReplyForm && (
+                  <button
+                    onClick={() => setShowReplyForm(true)}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    Reply to Ticket
+                  </button>
+                )}
               </div>
             </div>
           </div>
