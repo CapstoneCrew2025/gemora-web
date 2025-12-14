@@ -11,6 +11,7 @@ import UserDashboard from '../pages/user/Dashboard';
 import UserManage from '../pages/admin/UserManage';
 import GemManage from '../pages/admin/Pendinggems';
 import ListedGems from '../pages/admin/ListedGems';
+import Tickets from '../pages/admin/Tickets';
 
 const PrivateRoutes = () => {
   const { role } = useAuth();
@@ -35,6 +36,10 @@ const PrivateRoutes = () => {
         <Route 
           path="listed-gems" 
           element={<ListedGems />} 
+        />
+        <Route 
+          path="tickets" 
+          element={<Tickets />} 
         />
         <Route 
           path="products" 
