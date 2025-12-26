@@ -1,7 +1,6 @@
 # React + Vite
 
  development
-
  feat/ticket
 Currently, two official plugins are available:
 
