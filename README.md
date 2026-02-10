@@ -1,4 +1,4 @@
-# React + Vite
+Gemora Frontend
  development
  feat/ticket
 Currently, two official plugins are available:
