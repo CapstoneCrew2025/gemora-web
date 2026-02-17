@@ -164,7 +164,7 @@ const UserManage = () => {
             <h1 className="text-3xl sm:text-4xl font-black bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent font-['Poppins'] tracking-tight">
               User Management
             </h1>
-            <p className="text-sm sm:text-base text-gray-600 mt-1 font-medium">Manage all registered users</p>
+            <p className="text-sm sm:text-base text-gray-600 mt-1 font-medium">User Management Panel of Gemora Marketplace</p>
           </div>
         </div>
       </div>
