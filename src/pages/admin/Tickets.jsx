@@ -147,7 +147,7 @@ const Tickets = () => {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Support Tickets</h1>
-          <p className="text-gray-600">Manage and respond to user support tickets</p>
+          <p className="text-gray-600">Handle and respond to customer support inquiries.</p>
         </div>
 
         {/* Error Message */}
