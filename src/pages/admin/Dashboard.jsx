@@ -385,7 +385,7 @@ export default function Dashboard() {
           {[
             { 
               label: 'Review Gems', 
-              color: 'from-orange-500 to-red-500', 
+              color: 'from-lightorange-500 to-red-500', 
               badge: pendingGemsCount > 0 ? pendingGemsCount.toString() : null,
               icon: (
                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
