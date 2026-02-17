@@ -219,7 +219,7 @@ const UserManage = () => {
             </svg>
           </div>
           <h3 className="text-2xl font-bold text-gray-900 mb-2 font-['Poppins']">No users found</h3>
-          <p className="text-gray-500 font-medium">There are no registered users in the system yet.</p>
+          <p className="text-gray-500 font-medium">There are no registered users available.</p>
         </div>
       ) : (
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
