@@ -327,7 +327,7 @@ export default function Dashboard() {
                 </div>
                 <div>
                   <h2 className="text-xl font-bold text-gray-900">Recent Bids</h2>
-                  <p className="text-sm text-gray-600">Latest bidding activity</p>
+                  <p className="text-sm text-gray-600">Recent Bidding Activity</p>
                 </div>
               </div>
             </div>
