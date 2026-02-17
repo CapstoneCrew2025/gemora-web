@@ -168,7 +168,7 @@ export default function Dashboard() {
             )
           },
           {
-            title: "Total Bids Today",
+            title: "Total Bidding Activity – Today",
             value: "234",
             change: "+18.5%",
             bgColor: "bg-blue-500",
