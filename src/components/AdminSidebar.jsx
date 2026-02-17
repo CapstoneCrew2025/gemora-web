@@ -89,7 +89,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
                 to={item.path}
                 className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
                   isActive(item.path)
-                    ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-md'
+                    ? 'bg-gradient-to-b from-green-100 to-emerald-200 text-green-700 shadow-md'
                     : 'text-gray-700 hover:bg-green-50 hover:text-green-600'
                 }`}
               >
