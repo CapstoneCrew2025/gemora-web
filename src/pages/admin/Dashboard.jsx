@@ -116,7 +116,7 @@ export default function Dashboard() {
               Welcome back, {user?.name || 'Admin'}! 👋
             </h1>
             <p className="text-emerald-50 text-lg">
-              Here's what's happening with Gemora Auction today.
+              Daily Auction Summary for the Gemora Marketplace
             </p>
           </div>
           <div className="hidden md:flex items-center space-x-4">
