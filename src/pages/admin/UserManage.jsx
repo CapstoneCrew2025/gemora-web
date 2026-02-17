@@ -198,7 +198,7 @@ const UserManage = () => {
               <div>
                 <p className="text-sm font-bold text-emerald-50 uppercase tracking-wider mb-2">Total Registered Users</p>
                 <p className="text-5xl font-black text-white font-['Poppins'] tracking-tight">{users.length}</p>
-                <p className="text-emerald-100 text-sm mt-2 font-medium">Active accounts in the system</p>
+                <p className="text-emerald-100 text-sm mt-2 font-medium">Active Accounts on Platform</p>
               </div>
               <div className="bg-white/20 backdrop-blur-sm p-5 rounded-2xl">
                 <svg className="w-14 h-14 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
