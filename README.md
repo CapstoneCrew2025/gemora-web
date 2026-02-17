@@ -1,15 +1,13 @@
-node - <<'NODE'
-const fs = require('fs');
-const path = require('path');
+# React + Vite
+ development
+ feat/ticket
+Currently, two official plugins are available:
 
-const targetWords = 7000;
+main
 
-const base = `# Gemora Web
 
-## Overview
-Gemora Web is the front end for the Gemora platform. It is a React application built with Vite and organized around clear user flows for authentication, user dashboards, and administrative management. The application is designed to be approachable for new contributors while still providing space for a mature, long term codebase. The current repository contains the UI, routing, and data service layers that connect to a backend API. This README serves as the primary developer guide and focuses on local setup, day to day development workflow, and the organization of the codebase.
-
-The project is intentionally modular. Pages live under a pages folder, shared UI components live under components, and API communication is centralized in a service layer built on Axios. That structure keeps the codebase consistent and makes it easier to reason about responsibilities. It also enables future expansion, such as adding more user roles, adding new admin panels, or evolving the design system, without large refactors. Many details are still placeholders because product and backend details are not yet fully documented. Those placeholders are explicitly marked so they can be replaced as the project matures.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
 ## Goals
 The primary goals of this front end are:
