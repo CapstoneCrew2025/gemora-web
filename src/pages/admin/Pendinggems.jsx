@@ -139,7 +139,7 @@ const GemManage = () => {
     <div className="p-4 sm:p-6">
       <div className="mb-6 sm:mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">Gem Management</h1>
-        <p className="text-sm sm:text-base text-gray-600">Review and manage pending gem listings</p>
+        <p className="text-sm sm:text-base text-gray-600">Review and manage pending gemstone listings awaiting verification.</p>
       </div>
 
       {error && (
