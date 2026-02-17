@@ -159,7 +159,7 @@ export default function Dashboard() {
             // Display loading indicator or actual count of users
             value: isLoadingUserCount ? "..." : userCount.toString(),
             change: "+5 this week",
-            bgColor: "bg-blue-500",
+            bgColor: "bg-purple-500",
             description: "Registered users in system",
             icon: (
               <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
